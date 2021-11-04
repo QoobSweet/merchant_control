@@ -16,7 +16,7 @@ class CreateBoardsTable extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->integer('team_id')->default(0);
+            $table->foreignId('team_id');
             $table->boolean('is_personal');
             $table->string('name');
             $table->string('description');

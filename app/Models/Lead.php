@@ -13,4 +13,9 @@ class Lead extends Model
     {
         return $this->belongsTo(Section::class);
     }
+
+    public function board()
+    {
+        return $this->section()->board();
+    }
 }

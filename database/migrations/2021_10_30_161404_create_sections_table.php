@@ -17,7 +17,7 @@ class CreateSectionsTable extends Migration
             $table->id();
             $table->foreignId('board_id');
             $table->integer('order_weight')->default(0);
-            $table->string('name');
+            $table->string('title');
             $table->timestamps();
         });
     }

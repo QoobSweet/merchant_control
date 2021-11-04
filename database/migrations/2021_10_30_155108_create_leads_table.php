@@ -17,10 +17,13 @@ class CreateLeadsTable extends Migration
             $table->id();
             $table->foreignId('section_id');
             $table->integer('order_weight')->default(0);
-            $table->string('contact_name')->nullable();;
             $table->string('title')->default('New Lead');
-            $table->string('company_name')->default('New Lead')->nullable();
+            $table->string('contact_name')->nullable();
+            $table->string('contact_phone');
+            $table->string('contact_email')->nullable();
+            $table->string('company_name')->nullable();
             $table->integer('company_phone')->nullable();
+            $table->string('company_website')->nullable();
             $table->string('company_address_line_one')->nullable();
             $table->string('company_city')->nullable();
             $table->string('company_state')->nullable();

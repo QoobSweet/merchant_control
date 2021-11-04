@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Team;
 use App\Models\Status;
 use App\Models\Board;
-use App\Models\Section;
 use App\Models\Lead;
-
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,11 +23,31 @@ class DatabaseSeeder extends Seeder
         Status::truncate();
         Board::truncate();
 
-        // \App\Models\User::factory(10)->create();
-        $user = User::factory()->create();
 
+
+
+        // create Admin User
+        $user = new User();
+        $user->name = "admin";
+        $user->email = "kevina@everymerchant.com";
+        $user->password = "$2y$10\$i/J62kOU/aQzjn3TyFxLUOAlWe4rSTd9wQ8ChYlRg.YlXA4LcJQgS";
+        $user->save();
+
+        // Create Admin Team using user
+        $team = new Team();
+        $team->user_id = $user->id;
+        $team->name = 'Admin Team';
+        $team->save();
+
+        // save team to user
+        $user->current_team_id = $team->id;
+        $user->save();
+
+
+
+        // create Status's
         $status = new Status();
-        $status->name = 'Lead';
+        $status->name = 'New Lead';
         $status->save();
 
         $board1 = Board::create([
@@ -35,20 +55,45 @@ class DatabaseSeeder extends Seeder
             'description' => 'sample Description.',
             'is_personal' => false,
             'user_id' => $user->id,
-            'team_id' => 0
+            'team_id' => $team->id
         ]);
         $section1 = Section::create([
-            'name' => 'sample Section 1',
-            'board_id' => $board1->id
+            'board_id' => $board1->id,
+            'title' => 'Sample Section 1'
         ]);
         $section2 = Section::create([
-            'name' => 'sample Section 1',
-            'board_id' => $board1->id
+            'board_id' => $board1->id,
+            'title' => 'Sample Section 2'
         ]);
         $lead1 =  Lead::create([
+            'section_id' => $section1->id,
+            'title' => 'sample Lead 1',
+            'status_id' => $status->id,
+            'contact_name' => 'John Doe',
+            'contact_phone' => '1234567890',
+            'company_name' => 'Every Merchant',
+            'company_phone' => 0000000000
+        ]);
+        $lead2 =  Lead::create([
             'section_id' => $section2->id,
-            'title' => 'sample Lead',
-            'status_id' => $status->id
+            'title' => 'sample Lead 2',
+            'status_id' => $status->id,
+            'contact_name' => 'John Doe',
+            'contact_phone' => '1234567891',
+        ]);
+        $lead2 =  Lead::create([
+            'section_id' => $section2->id,
+            'title' => 'sample Lead 2',
+            'status_id' => $status->id,
+            'contact_name' => 'John Doe',
+            'contact_phone' => '1234567891',
+        ]);
+        $lead2 =  Lead::create([
+            'section_id' => $section2->id,
+            'title' => 'sample Lead 2',
+            'status_id' => $status->id,
+            'contact_name' => 'John Doe',
+            'contact_phone' => '1234567891',
         ]);
     }
 }

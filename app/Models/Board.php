@@ -9,6 +9,8 @@ class Board extends Model
 {
     use HasFactory;
 
+    protected $with = ['user', 'team'];
+
     //** get User that owns board. Super Admin */
     public function user()
     {
@@ -20,7 +22,6 @@ class Board extends Model
     {
         return $this->belongsTo(Team::class);
     }
-
 
     //** Grab all associated sections */
     public function sections()
