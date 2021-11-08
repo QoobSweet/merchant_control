@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\BoardsController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Board;
 
@@ -14,12 +18,21 @@ use App\Models\Board;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [GuestController::class, 'index']);
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    // dashboard
+    Route::get('/dashboard', [UserController::class, 'index'])
+        ->name('dashboard');
+
+    //show all boards
+    Route::get('/boards', [BoardsController::class, 'show'])
+        ->name('boards');
+
+    Route::get('/board/{board_id}', function ($board_id) {
+        return [BoardController::class, 'show'];
+    })->name('board');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard', [
-        'board' => Board::all()[0]
-    ]);
-})->name('dashboard');
+require_once __DIR__ . '/jetstream.php';
+
