@@ -16,6 +16,9 @@ class CreateLeadsTable extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('section_id');
+            $table->foreignId('status_id');
+            $table->foreignId('state_id')->nullable();
+
             $table->integer('order_weight')->default(0);
             $table->string('title')->default('New Lead');
             $table->string('contact_name')->nullable();
@@ -28,9 +31,7 @@ class CreateLeadsTable extends Migration
             $table->string('company_city')->nullable();
             $table->string('company_state')->nullable();
             $table->integer('company_zip_code')->nullable();
-            $table->foreignId('state_id')->nullable();
 
-            $table->foreignId('status_id');
             $table->timestamps();
         });
     }

@@ -1,5 +1,7 @@
 <x-dashboard ::pageTitle="Boards">
-    <x-board :board="$board"></x-board>
+    @foreach ($boards as $board)
+        <x-board :board="$board"></x-board>
+    @endforeach
 </x-dashboard>
 
 

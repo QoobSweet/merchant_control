@@ -10,6 +10,6 @@ class BoardsController extends Controller
 {
     public function show(Request $request)
     {
-        return view('modules/user/pages/boards', ['board' => $request->user()->boards[0]]);
+        return view('modules/user/pages/boards', ['boards' => $request->user()->boards]);
     }
 }
