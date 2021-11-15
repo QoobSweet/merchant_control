@@ -1,4 +1,4 @@
 <x-dashboard ::pageTitle="Dashboard">
-    <livewire:show-board :board="$board" />
+    <livewire:show-board :boardId="$board->id" />
 </x-dashboard>
 

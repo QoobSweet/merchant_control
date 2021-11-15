@@ -9,6 +9,6 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        return view('modules/user/pages/index', ['user' => $request->user()]);
+        return view('modules/user/pages/index', ['board' => Board::with('user', 'sections')->get()[0]]);
     }
 }

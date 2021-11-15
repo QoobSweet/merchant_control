@@ -5,7 +5,9 @@ namespace App\Http\Livewire;
 use App\Models\Board;
 use App\Models\Section;
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use function Psy\debug;
 
 class ShowBoard extends Component
 {
@@ -13,25 +15,35 @@ class ShowBoard extends Component
     public $sections;
     public $counter = false;
 
-    public function mount(SessionManager $session, $board)
+    protected $listeners = ['updateSections'];
+
+    public function mount(SessionManager $session)
     {
-        $this->board = $board;
+        $this->board = Auth::user()->boards->fresh()[0];
         $this->sections = $this->board->sections;
     }
 
     public function render()
     {
-        if($this->counter) {
-            $this->counter = false;
-            dd($this);
-        } else {
-            $this->counter = true;
-        }
-        return view('livewire.show-board', ['board' => $this->board]);
+        $this->board = Auth::user()->boards->fresh()[0];
+        $this->sections = $this->board->sections;
+
+        return view('livewire.show-board');
+    }
+
+    public function updateSections()
+    {
+        $this->render();
     }
 
     public function createSection()
     {
         $this->board->createSection();
+        $this->board->refresh();
+    }
+
+    public function createLead()
+    {
+
     }
 }

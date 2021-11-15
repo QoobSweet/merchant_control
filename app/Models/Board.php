@@ -32,8 +32,6 @@ class Board extends Model
 
     public function createSection()
     {
-        $section = new Section();
-
         $this->sections()->create([
             'title' => 'new Section'
         ]);

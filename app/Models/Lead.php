@@ -9,6 +9,8 @@ class Lead extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title'];
+
     public function section()
     {
         return $this->belongsTo(Section::class);

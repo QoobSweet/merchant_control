@@ -33,4 +33,11 @@ class Section extends Model
     {
         return $this->hasMany(Lead::class);
     }
+
+    public function createLead()
+    {
+        $this->leads()->create([
+            'title' => 'new Lead'
+        ]);
+    }
 }
