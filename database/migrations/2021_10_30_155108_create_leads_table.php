@@ -15,9 +15,9 @@ class CreateLeadsTable extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('section_id');
-            $table->foreignId('status_id');
-            $table->foreignId('state_id')->nullable();
+            $table->foreignId('section_id')->nullable();
+            $table->foreignId('state_status_id');
+            $table->foreignId('value_status_id')->nullable();
 
             $table->integer('order_weight')->default(0);
             $table->string('title')->default('New Lead');

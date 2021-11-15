@@ -13,21 +13,29 @@ class Board extends Model
 
     protected $with = ['user', 'team'];
 
-    //** get User that owns board. Super Admin */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     //** provided when shared with a team. Only 1 team per board max. */
-    public function team(): BelongsTo
+    public function team()
     {
         return $this->belongsTo(Team::class);
     }
 
     //** Grab all associated sections */
-    public function sections(): HasMany
+    public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+    public function createSection()
+    {
+        $section = new Section();
+
+        $this->sections()->create([
+            'title' => 'new Section'
+        ]);
     }
 }

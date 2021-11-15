@@ -18,7 +18,7 @@ class CreateBoardsTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('team_id');
             $table->boolean('is_personal');
-            $table->string('name');
+            $table->string('title');
             $table->string('description');
             $table->timestamps();
         });
