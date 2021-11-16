@@ -11,7 +11,7 @@ class Board extends Model
 {
     use HasFactory;
 
-    protected $with = ['user', 'team'];
+    protected $with = ['sections', 'sections.leads'];
 
     public function user()
     {

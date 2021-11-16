@@ -11,6 +11,8 @@ class Section extends Model
 {
     use HasFactory;
 
+    public $with = ['leads'];
+
     /**
      * @var integer
      */

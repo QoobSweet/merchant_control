@@ -9,6 +9,8 @@ class Lead extends Model
 {
     use HasFactory;
 
+    protected $with = ['section', 'board'];
+
     protected $fillable = ['title'];
 
     public function section()
