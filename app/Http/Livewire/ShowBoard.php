@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Board;
+use App\Models\Lead;
 use App\Models\Section;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Auth;
@@ -13,21 +14,25 @@ use function Psy\debug;
 class ShowBoard extends Component
 {
     public $board;
-    public $sections;
+
+    public $creatingSection = false;
     public $creatingLead = false;
 
-    protected $listeners = ['updateSections', 'createLead', 'clearPopupContext'];
+    public $editingSection = false;
+    public $editingLead = false;
+    public $activeSection;
+    public $activeLead;
 
-    public function mount(SessionManager $session, Board $board)
-    {
-        $this->board = $board;
-        $this->sections = $board->sections()->get();
-    }
+    protected $listeners = ['updateSections','createSection', 'editSection', 'createLead', 'editLead', 'stopFocusing'];
+
     public function render()
     {
         $this->board = $this->board->fresh();
-        $this->sections = $this->board->sections()->get();
-        return view('livewire.show-board');
+
+        return view('livewire.show-board', [
+            'sections' => $this->board->sections,
+            'leads' => $this->board->leads
+        ]);
     }
 
     public function updateSections()
@@ -37,18 +42,34 @@ class ShowBoard extends Component
 
     public function createSection()
     {
-        $this->board->createSection();
-        $this->board->refresh();
+        $this->creatingSection = true;
+    }
+
+    public function editSection()
+    {
+        $this->editingSection = true;
     }
 
     public function createLead()
     {
         $this->creatingLead = true;
-        $this->render();
     }
 
-    public function clearPopupContext()
+    public function editLead($lead)
     {
+        $this->activeLead = Lead::find($lead['id']);
+        $this->editingLead = true;
+    }
+
+    public function stopFocusing()
+    {
+        $this->creatingSection = false;
+        $this->editingSection = false;
         $this->creatingLead = false;
+        $this->editingLead = false;
+
+        $this->activeLead = null;
+        $this->activeSection = null;
+        $this->render();
     }
 }

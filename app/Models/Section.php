@@ -11,35 +11,21 @@ class Section extends Model
 {
     use HasFactory;
 
-    public $with = ['leads'];
+    protected $fillable = ['title'];
 
-    /**
-     * @var integer
-     */
-    public $board_id;
-
-    /**
-     * @var string
-     */
-    public $title;
-
-    protected $fillable = ['board_id', 'title'];
 
     public function board()
     {
         return $this->belongsTo(Board::class);
     }
 
-    //** Grab all associated leads */
-    public function leads()
+    /**
+     * Get Tracked Status's
+     *
+     * @return collection of subscribed status's
+     */
+    public function getStatusIds()
     {
-        return $this->hasMany(Lead::class);
-    }
-
-    public function createLead()
-    {
-        $this->leads()->create([
-            'title' => 'new Lead'
-        ]);
+        return explode(',', str_replace(' ', '', $this['status_ids']));
     }
 }
