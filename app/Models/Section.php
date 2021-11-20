@@ -4,19 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\Integer;
 
 class Section extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'status_ids'];
+
 
     public function board()
     {
         return $this->belongsTo(Board::class);
     }
 
-    //** Grab all associated leads */
-    public function leads()
+    /**
+     * Get Tracked Status's
+     *
+     * @return collection of subscribed status's
+     */
+    public function getStatusIds()
     {
-        return $this->hasMany(Lead::class);
+        return explode(',', str_replace(' ', '', $this['status_ids']));
     }
 }

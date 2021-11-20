@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="flex flex-col flex-grow bg-white m-3 rounded-lg w-full overflow-hidden">
+    <div class="flex flex-col flex-grow bg-white m-0 w-full overflow-hidden">
         {{ $slot ?? '' }}
     </div>
 </x-app-layout>

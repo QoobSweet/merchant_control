@@ -15,14 +15,14 @@ class CreateLeadsTable extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('section_id');
-            $table->foreignId('status_id');
-            $table->foreignId('state_id')->nullable();
+            $table->string('title')->default('New Lead');
+            $table->foreignId('board_id');
+            $table->foreignId('state_status_id')->default(1);
+            $table->foreignId('value_status_id')->nullable();
 
             $table->integer('order_weight')->default(0);
-            $table->string('title')->default('New Lead');
             $table->string('contact_name')->nullable();
-            $table->string('contact_phone');
+            $table->string('contact_phone')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('company_name')->nullable();
             $table->integer('company_phone')->nullable();

@@ -1,4 +1,6 @@
 <x-dashboard ::pageTitle="Dashboard">
-    <x-board :board="$board"></x-board>
+    <livewire:show-board :board="$board">
+{{--        Slto insert for Board Selection Dropdown   --}}
+    </livewire:show-board>
 </x-dashboard>
 

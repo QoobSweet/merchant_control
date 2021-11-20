@@ -16,8 +16,9 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('board_id');
+            $table->string('status_ids')->nullable();
             $table->integer('order_weight')->default(0);
-            $table->string('title');
+            $table->string('title')->default('New Section');
             $table->timestamps();
         });
     }
