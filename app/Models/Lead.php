@@ -9,17 +9,17 @@ class Lead extends Model
 {
     use HasFactory;
 
-    protected $with = ['section', 'board'];
+    protected $with = ['board'];
 
-    protected $fillable = ['title'];
-
-    public function section()
-    {
-        return $this->belongsTo(Section::class);
-    }
+    protected $guarded = [];
 
     public function board()
     {
-        return $this->section()->board();
+        return $this->belongsTo(Board::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $boards = Board::with(['sections', 'sections.leads'])->where('user_id', Auth::user()->id)->get();
+        $boards = Board::where('user_id', Auth::user()->id)->get();
         $board = $boards->firstOrFail();
 
         return view('modules/user/pages/index', [

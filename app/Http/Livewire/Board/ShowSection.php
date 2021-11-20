@@ -2,39 +2,35 @@
 
 namespace App\Http\Livewire\Board;
 
+use App\Models\Lead;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ShowSection extends Component
 {
+    public $board;
     public $section;
-    public $leads;
 
-    public function mount(SessionManager $session)
-    {
-        $this->section = $this->section->fresh();
-        $this->leads = $this->section->leads;
-    }
+    public $editingProperties = false;
+
+    protected $listeners = ['updateSections', 'stopFocusing'];
 
     public function render()
     {
-        $this->section = $this->section->fresh();
-        $this->leads = $this->section->leads;
+        // filter for leads tracked by this section
+        $leads = $this->board->leads->filter(function ($lead) {
+            $statusIds = $this->section->getStatusIds();
+            return in_array($lead->state_status_id, $statusIds) || in_array($lead->value_status_id, $statusIds);
+        });
 
-        return view('livewire.board.show-section');
+        return view('livewire.board.show-section', [
+            'leads' => $leads
+        ]);
     }
+    public function updateSections() { $this->section = $this->section->fresh(); }
+    public function removeSection() { $this->section->delete(); }
 
-    public function updateBoard()
-    {
-        $this->emit('updateSections');
-    }
-
-    public function createLead()
-    {
-        $this->emit('createLead');
-        $this->section->createLead();
-        $this->section->refresh();
-        $this->updateBoard();
-    }
+    public function editSection() { $this->editingProperties = true; }
+    public function stopFocusing() { $this->editingProperties = false; }
 }

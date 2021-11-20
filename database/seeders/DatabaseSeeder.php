@@ -151,16 +151,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // generate a few sections
-        $section1 = Section::create([
-            'board_id' => $board1->id,
+        $section1 = $board1->sections()->create([
+            'status_ids' => '1',
             'title' => 'Sample Section 1'
         ]);
-        $section2 = Section::create([
-            'board_id' => $board1->id,
+        $section2 = $board1->sections()->create([
+            'status_ids' => '1, 2',
             'title' => 'Sample Section 2'
         ]);
 
-        $lead1 =  Lead::create([
+        $lead1 =  $board1->leads()->create([
             'title' => 'sample Lead 1',
             'state_status_id' => $newLeadState->id,
             'contact_name' => 'John Doe',
@@ -168,21 +168,9 @@ class DatabaseSeeder extends Seeder
             'company_name' => 'Every Merchant',
             'company_phone' => 0000000000
         ]);
-        $lead2 =  Lead::create([
+        $lead2 =  $board1->leads()->create([
             'title' => 'sample Lead 2',
-            'state_status_id' => $newLeadState->id,
-            'contact_name' => 'John Doe',
-            'contact_phone' => '1234567891',
-        ]);
-        $lead2 =  Lead::create([
-            'title' => 'sample Lead 2',
-            'state_status_id' => $newLeadState->id,
-            'contact_name' => 'John Doe',
-            'contact_phone' => '1234567891',
-        ]);
-        $lead2 =  Lead::create([
-            'title' => 'sample Lead 2',
-            'state_status_id' => $newLeadState->id,
+            'state_status_id' => $needsProposalState->id,
             'contact_name' => 'John Doe',
             'contact_phone' => '1234567891',
         ]);

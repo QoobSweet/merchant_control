@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Board;
+use App\Models\Lead;
 use App\Models\Section;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Auth;
@@ -13,42 +14,33 @@ use function Psy\debug;
 class ShowBoard extends Component
 {
     public $board;
-    public $sections;
+
+    // blade routing booleans
+    public $creatingSection = false;
     public $creatingLead = false;
 
-    protected $listeners = ['updateSections', 'createLead', 'clearPopupContext'];
+    protected $listeners = ['updateSections','createSection', 'editSection', 'createLead', 'editLead', 'stopFocusing'];
 
-    public function mount(SessionManager $session, Board $board)
-    {
-        $this->board = $board;
-        $this->sections = $board->sections()->get();
-    }
     public function render()
     {
         $this->board = $this->board->fresh();
-        $this->sections = $this->board->sections()->get();
-        return view('livewire.show-board');
+
+        return view('livewire.show-board', [
+            'sections' => $this->board->sections,
+            'leads' => $this->board->leads
+        ]);
     }
 
-    public function updateSections()
-    {
-        $this->render();
-    }
+    public function updateBoard() { $this->render(); }
 
-    public function createSection()
-    {
-        $this->board->createSection();
-        $this->board->refresh();
-    }
+    public function createLead() { $this->creatingLead = true; }
+    public function createSection() { $this->creatingSection = true; }
 
-    public function createLead()
+    public function stopFocusing()
     {
-        $this->creatingLead = true;
-        $this->render();
-    }
-
-    public function clearPopupContext()
-    {
+        $this->creatingSection = false;
         $this->creatingLead = false;
+
+        $this->render();
     }
 }
