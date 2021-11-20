@@ -21,7 +21,9 @@ class ShowSection extends Component
         // filter for leads tracked by this section
         $leads = $this->board->leads->filter(function ($lead) {
             $statusIds = $this->section->getStatusIds();
-            return in_array($lead->state_status_id, $statusIds) || in_array($lead->value_status_id, $statusIds);
+            $matchingState = in_array($lead->state_status_id, $statusIds);
+            $matchingValue = in_array($lead->value_status_id, $statusIds);
+            return $matchingState || $matchingValue;
         });
 
         return view('livewire.board.show-section', [
@@ -29,7 +31,6 @@ class ShowSection extends Component
         ]);
     }
     public function updateSections() { $this->section = $this->section->fresh(); }
-    public function removeSection() { $this->section->delete(); }
 
     public function editSection() { $this->editingProperties = true; }
     public function stopFocusing() { $this->editingProperties = false; }
