@@ -17,14 +17,14 @@ class SectionForm extends Component
     public $selected_state_id;
 
     protected $rules = [
-        'section' => 'required'
+        'title' => 'required',
+        'selected_state_id' => 'required'
     ];
 
     public function mount(SessionManager $session, $board, $section = null)
     {
         $this->board = $board;
         $this->section = $section;
-        $this->title = $section ? $section->title : '';
 
         $this->statusOptions = Status::all();
 
@@ -38,13 +38,13 @@ class SectionForm extends Component
         $this->validate();
 
         $fields = [
-            'board_id' => $this->board->id,
             'title' => $this->title,
             'status_ids' => $this->selected_state_id
         ];
 
         if ($this->section) {
-            $this->section->save($fields);
+            $this->section->fill($fields);
+            $this->section->save();
         } else {
             $this->board->sections()->create($fields);
         }
@@ -54,7 +54,6 @@ class SectionForm extends Component
 
     public function render()
     {
-        $this->section = $this->section ?? new Section(['title'=> 'New Section']);
         return view('livewire.forms.section-form');
     }
 }

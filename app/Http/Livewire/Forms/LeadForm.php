@@ -34,8 +34,6 @@ class LeadForm extends Component
     public $stateOptions;
     public $countryOptions;
 
-    protected $gaurded = [];
-
     protected $rules = [
         'title' => 'required|min:5',
         'contact_name' => 'required|min:3',
@@ -78,7 +76,7 @@ class LeadForm extends Component
             'contact_phone' => $this->contact_phone,
             'contact_email' => $this->contact_email,
             'company_name' => $this->company_name,
-            'company_phone' => $this->company_phone,
+            'company_phone' => intval($this->company_phone),
             'company_website' => $this->company_website,
             'company_address_line_one' => $this->company_address,
             'company_city' => $this->company_city,
@@ -90,12 +88,20 @@ class LeadForm extends Component
         ];
 
         if ($this->lead) {
-            $this->lead->save($fields);
+            $this->lead->fill($fields);
+            $this->lead->save();
         } else {
             $this->board->leads()->create($fields);
         }
 
         $this->emit('stopFocusing');
+        $this->emit('updateLeads');
+    }
+
+    public function removeLead() {
+        $this->lead->delete();
+        $this->emit('stopFocusing');
+        $this->emit('updateLeads');
     }
 
     public function render()

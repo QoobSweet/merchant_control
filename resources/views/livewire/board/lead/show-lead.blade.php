@@ -15,10 +15,15 @@
                 <label class="font-italic pl-2 text-xs">{{ $lead->contact_phone }}</label>
             </div>
             <div class="flex h-5">
-                <div  wire:click="$emit('editLead', {{ $lead }})" class="max-h-4 hover:bg-gray-100">
+                <div  wire:click="editLead" class="max-h-4 hover:bg-gray-100">
                     <x-svg.menubar />
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Hidden Focusable Sections -->
+    @if($editingProperties)
+        <livewire:forms.lead-form :board="$board" :lead="$lead"/>
+    @endif
 </div>

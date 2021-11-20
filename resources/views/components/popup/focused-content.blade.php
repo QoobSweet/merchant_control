@@ -1,7 +1,7 @@
 <div>
     <div wire:click.self="$emit('stopFocusing')" class="flex flex-col absolute inset-0 bg-gray-800 bg-opacity-50">
         <div class="flex flex-row flex-grow m-auto">
-            <div class="flex-grow max-w-6xl p-2 m-auto bg-white rounded-lg">
+            <div class="flex-grow p-2 m-auto bg-white rounded-lg">
                 <!-- Header -->
                 <div class="p-2 border-b font-bold">
                     <h2>{{ $contextTitle }}</h2>

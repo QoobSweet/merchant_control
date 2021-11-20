@@ -14,7 +14,7 @@ class ShowSection extends Component
 
     public $editingProperties = false;
 
-    protected $listeners = ['updateLeads', 'stopFocusing'];
+    protected $listeners = ['updateSections', 'stopFocusing'];
 
     public function render()
     {
@@ -28,31 +28,9 @@ class ShowSection extends Component
             'leads' => $leads
         ]);
     }
+    public function updateSections() { $this->section = $this->section->fresh(); }
+    public function removeSection() { $this->section->delete(); }
 
-    public function updateBoard()
-    {
-        $this->emit('updateSections');
-    }
-
-    public function updateLeads()
-    {
-        $this->updateBoard();
-        $this->render();
-    }
-
-    public function removeSection()
-    {
-        $this->section->delete();
-        $this->emit('updateSections');
-    }
-
-    public function editSection()
-    {
-        $this->editingProperties = true;
-    }
-
-    public function stopFocusing()
-    {
-        $this->editingProperties = false;
-    }
+    public function editSection() { $this->editingProperties = true; }
+    public function stopFocusing() { $this->editingProperties = false; }
 }

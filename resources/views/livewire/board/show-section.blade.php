@@ -3,14 +3,14 @@
         <!-- Header -->
         <div id="section_{{ $section->id }}_title" class="flex p-1">
             <h2 class="flex-grow ml-3 text-black text-center font-bold">{{ ucfirst($section->title) }}</h2>
-            <div  wire:click="$emit('editSection', {{ $section }})" class="float-right hover:bg-gray-300 ml-2">
+            <div  wire:click="editSection" class="float-right hover:bg-gray-300 ml-2">
                 <x-svg.menubar />
             </div>
         </div>
 
         <!-- Main Content -->
         @foreach($leads as $lead)
-            <livewire:board.lead.show-lead :lead="$lead" />
+            <livewire:board.lead.show-lead :board="$section->board" :lead="$lead" />
         @endforeach
 
         <!-- Action Button For Creating Leads -->
@@ -20,9 +20,9 @@
     </div>
 
     <!-- Hidden Focusable Sections -->
-    <div class="{{ $editingProperties ? '' : 'hidden' }}">
+    @if($editingProperties)
         <livewire:forms.section-form :board="$section->board" :section="$section"/>
-    </div>
+    @endif
 </div>
 
 

@@ -19,9 +19,5 @@
         <livewire:forms.section-form :board="$board" />
     @elseif($creatingLead)
         <livewire:forms.lead-form :board="$board" />
-    @elseif($editingSection)
-        <livewire:forms.section-form :board="$board" :lead="$activeSection"/>
-    @elseif($editingLead)
-        <livewire:forms.lead-form :board="$board" :lead="$activeLead"/>
     @endif
 </div>

@@ -15,13 +15,9 @@ class ShowBoard extends Component
 {
     public $board;
 
+    // blade routing booleans
     public $creatingSection = false;
     public $creatingLead = false;
-
-    public $editingSection = false;
-    public $editingLead = false;
-    public $activeSection;
-    public $activeLead;
 
     protected $listeners = ['updateSections','createSection', 'editSection', 'createLead', 'editLead', 'stopFocusing'];
 
@@ -35,41 +31,16 @@ class ShowBoard extends Component
         ]);
     }
 
-    public function updateSections()
-    {
-        $this->render();
-    }
+    public function updateBoard() { $this->render(); }
 
-    public function createSection()
-    {
-        $this->creatingSection = true;
-    }
-
-    public function editSection()
-    {
-        $this->editingSection = true;
-    }
-
-    public function createLead()
-    {
-        $this->creatingLead = true;
-    }
-
-    public function editLead($lead)
-    {
-        $this->activeLead = Lead::find($lead['id']);
-        $this->editingLead = true;
-    }
+    public function createLead() { $this->creatingLead = true; }
+    public function createSection() { $this->creatingSection = true; }
 
     public function stopFocusing()
     {
         $this->creatingSection = false;
-        $this->editingSection = false;
         $this->creatingLead = false;
-        $this->editingLead = false;
 
-        $this->activeLead = null;
-        $this->activeSection = null;
         $this->render();
     }
 }
