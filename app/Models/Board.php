@@ -44,6 +44,22 @@ class Board extends Model
     }
 
     /**
+     * Grab all associated Statuses
+     */
+    public function statusCollections()
+    {
+        return $this->hasMany(StatusCollection::class);
+    }
+
+    /**
+     * Grab all status's within related collections
+     */
+    public function statuses()
+    {
+        return $this->hasManyThrough(Status::class, StatusCollection::class);
+    }
+
+    /**
      * @param $optionsArray array of key => values that serve to fill in data object Model: Section
      */
     public function createSection($optionsArray)

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AriaColor;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\StatusCollection;
@@ -99,87 +100,59 @@ class DatabaseSeeder extends Seeder
         }
 
         // create Default Users
-        $user = new User();
-        $user->name = "Kevin";
-        $user->email = "kevina@everymerchant.com";
-        $user->password = "$2y$10\$i/J62kOU/aQzjn3TyFxLUOAlWe4rSTd9wQ8ChYlRg.YlXA4LcJQgS";
-        $user->save();
+        $user1 = new User();
+        $user1->name = "Kevin";
+        $user1->email = "kevina@everymerchant.com";
+        $user1->password = "$2y$10\$i/J62kOU/aQzjn3TyFxLUOAlWe4rSTd9wQ8ChYlRg.YlXA4LcJQgS";
+        $user1->save();
 
-        $user = new User();
-        $user->name = "Jonathan";
-        $user->email = "johnl@everymerchant.com";
-        $user->password = "$2y$10\$Zs6lrDotH92odRaE8ARnEOPTnlBsom7p9E2YqgI1py.gpVdFmwFou";
-        $user->save();
+        $user2 = new User();
+        $user2->name = "Jonathan";
+        $user2->email = "johnl@everymerchant.com";
+        $user2->password = "$2y$10\$Zs6lrDotH92odRaE8ARnEOPTnlBsom7p9E2YqgI1py.gpVdFmwFou";
+        $user2->save();
 
         // Create Admin Team using user
-        $team = new Team();
-        $team->user_id = $user->id;
-        $team->name = 'Admin Team';
-        $team->save();
+        $adminTeam = new Team();
+        $adminTeam->user_id = $user1->id;
+        $adminTeam->name = 'Admin Team';
+        $adminTeam->save();
 
         // save team to user
-        $user->current_team_id = $team->id;
-        $user->save();
-
-        // create Status Collections
-        $stateCollection = StatusCollection::create(['label' => 'state', 'lead_key' => 'state_status_id']);
-        $valueCollection = StatusCollection::create(['label' => 'value', 'lead_key' => 'value_status_id']);
-
-        $newLeadState = Status::create(['label' => 'New Lead', 'status_collection_id' => $stateCollection->id]);
-        $needsProposalState = Status::create(['label' => 'Needs Proposal', 'status_collection_id' => $stateCollection->id]);
-        $proposalSentState = Status::create(['label' => 'Proposal Sent', 'status_collection_id' => $stateCollection->id]);
-        $shootDatesState = Status::create(['label' => 'Awaiting Shoot Dates', 'status_collection_id' => $stateCollection->id]);
-        $schedulingState = Status::create(['label' => 'Scheduling Photographers', 'status_collection_id' => $stateCollection->id]);
-        $scheduledState = Status::create(['label' => 'Photo Shoot Scheduled', 'status_collection_id' => $stateCollection->id]);
-        $moderatingState = Status::create(['label' => 'Photographed/Moderating', 'status_collection_id' => $stateCollection->id]);
-        $publishedState = Status::create(['label' => 'Published', 'status_collection_id' => $stateCollection->id]);
-
-        // create Lead Value Status's
-
-        $lowValue = Status::create(['label' => 'Low Value', 'status_collection_id' => $valueCollection->id]);
-        $medValue = Status::create(['label' => 'Medium Value', 'status_collection_id' => $valueCollection->id]);
-        $highValue = Status::create(['label' => 'High Value', 'status_collection_id' => $valueCollection->id]);
+        $user1->current_team_id = $adminTeam->id;
+        $user1->save();
+        $user2->current_team_id = $adminTeam->id;
+        $user2->save();
 
         // create 2 boards for testing
         $board1 = Board::create([
             'title' => 'sample Board 1',
             'description' => 'sample Description.',
             'is_personal' => false,
-            'user_id' => $user->id,
-            'team_id' => $team->id
+            'user_id' => $user1->id,
+            'team_id' => $adminTeam->id
         ]);
 
-        $board2 = Board::create([
-            'title' => 'sample Board 2',
-            'description' => 'sample Description.',
-            'is_personal' => false,
-            'user_id' => $user->id,
-            'team_id' => $team->id
-        ]);
+        $ariaColorLightRed = AriaColor::create(['name' => 'Light Red', 'aria_color_tag' => 'bg-red-300']);
+        $ariaColorRed = AriaColor::create(['name' => 'Red', 'aria_color_tag' => 'bg-red-500']);
+        $ariaColorDarkRed = AriaColor::create(['name' => 'Dark Red', 'aria_color_tag' => 'bg-red-700']);
+        $ariaColorLightBlue = AriaColor::create(['name' => 'Light Blue', 'aria_color_tag' => 'bg-blue-300']);
+        $ariaColorBlue = AriaColor::create(['name' => 'Blue', 'aria_color_tag' => 'bg-blue-500']);
+        $ariaColorDarkBlue = AriaColor::create(['name' => 'Dark Blue', 'aria_color_tag' => 'bg-blue-700']);
+        $ariaColorLightGreen = AriaColor::create(['name' => 'Light Green', 'aria_color_tag' => 'bg-green-300']);
+        $ariaColorGreen = AriaColor::create(['name' => 'Green', 'aria_color_tag' => 'bg-green-500']);
+        $ariaColorDarkGreen = AriaColor::create(['name' => 'Dark Green', 'aria_color_tag' => 'bg-green-700']);
 
-        // generate a few sections
-        $section1 = $board1->sections()->create([
-            'status_ids' => '1',
-            'title' => 'Sample Section 1'
-        ]);
-        $section2 = $board1->sections()->create([
-            'status_ids' => '1, 2',
-            'title' => 'Sample Section 2'
-        ]);
+        // create Status Collections
+        $stateCollection =  StatusCollection::create(['board_id' => $board1->id, 'label' => 'state', 'lead_key' => 'state_status_id']);
+        $valueCollection = StatusCollection::create(['board_id' => $board1->id, 'label' => 'value', 'lead_key' => 'value_status_id']);
 
-        $lead1 =  $board1->leads()->create([
-            'title' => 'sample Lead 1',
-            'state_status_id' => $newLeadState->id,
-            'contact_name' => 'John Doe',
-            'contact_phone' => '1234567890',
-            'company_name' => 'Every Merchant',
-            'company_phone' => 0000000000
-        ]);
-        $lead2 =  $board1->leads()->create([
-            'title' => 'sample Lead 2',
-            'state_status_id' => $needsProposalState->id,
-            'contact_name' => 'John Doe',
-            'contact_phone' => '1234567891',
-        ]);
+        // create root Lead Status tree
+        $newLeadState = Status::create(['label' => 'New Lead', 'aria_color_id' => $ariaColorLightBlue->id, 'status_collection_id' => $stateCollection->id]);
+
+        // create Lead Value Status tree
+        $lowValue = Status::create(['label' => 'Low Value', 'aria_color_id' => $ariaColorBlue->id, 'status_collection_id' => $valueCollection->id]);
+        $medValue = Status::create(['label' => 'Medium Value', 'aria_color_id' => $ariaColorGreen->id, 'status_collection_id' => $valueCollection->id]);
+        $highValue = Status::create(['label' => 'High Value', 'aria_color_id' => $ariaColorRed->id, 'status_collection_id' => $valueCollection->id]);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Livewire\Forms;
 
-use App\Models\Lead;
 use App\Models\Status;
 use Illuminate\Session\SessionManager;
 use Livewire\Component;
-use MongoDB\Driver\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 
 class LeadForm extends Component
 {
@@ -93,18 +90,18 @@ class LeadForm extends Component
         if ($this->lead) {
             $this->lead->fill($fields);
             $this->lead->save();
+            $this->emit('closeLead');
         } else {
             $this->board->leads()->create($fields);
+            $this->emit('stopCreating');
         }
 
-        $this->emit('stopFocusing');
-        $this->emit('updateLeads');
+        $this->emit('updateSections');
     }
 
     public function removeLead() {
         $this->lead->delete();
-        $this->emit('stopFocusing');
-        $this->emit('updateLeads');
+        $this->emit('updateSections');
     }
 
     public function render()

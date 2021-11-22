@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateAriaColorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('aria_colors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('status_collection_id');
-            $table->foreignId('aria_color_id')->nullable();
-            $table->string('label')->unique();
+            $table->string('name');
+            $table->string('aria_color_tag');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('aria_colors');
     }
 }

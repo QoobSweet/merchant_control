@@ -22,4 +22,28 @@ class Lead extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function stateStatus()
+    {
+        return $this->hasOne(Status::class, 'id', 'state_status_id');
+    }
+
+    public function valueStatus()
+    {
+        return $this->hasOne(Status::class, 'id', 'value_status_id');
+    }
+
+    public function valueAriaColor()
+    {
+        if ($this->valueStatus) {
+            return $this->valueStatus->ariaColor['aria_color_tag'];
+        }
+
+        return null;
+    }
+
+    public function stateAriaColor()
+    {
+        return $this->stateStatus->ariaColor['aria_color_tag'];
+    }
 }

@@ -10,7 +10,7 @@ class StatusCollection extends Model
 {
     use HasFactory;
 
-    public function get()
+    public function statuses()
     {
         return $this->hasMany(Status::class);
     }

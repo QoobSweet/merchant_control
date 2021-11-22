@@ -2,10 +2,8 @@
     <div name="lead_content" class="flex flex-col flex-grow mt-0 mb-[3px] ml-0 mr-px rounded bg-white">
         <!-- Lead Context Bars -->
         <div id="lead_context_bars" class="flex h-2 m-1">
-
-            <div class="w-1/5 ml-1 bg-blue-400 rounded-full"></div>
-            <div class="w-1/5 ml-1 bg-red-400 rounded-full"></div>
-            <div class="flex-grow ml-1 bg-green-400 rounded-full"></div>
+            <div class="w-1/5 ml-1 {{ $lead->stateAriaColor() }} rounded-full"></div>
+            <div class="w-3/5 ml-1 {{ $lead->valueAriaColor() }} rounded-full"></div>
         </div>
 
         <!-- Lead Excerpt Content -->
@@ -24,6 +22,8 @@
 
     <!-- Hidden Focusable Sections -->
     @if($editingProperties)
-        <livewire:forms.lead-form :board="$board" :lead="$lead"/>
+        <x-popup.focused-content :title="$lead->contact_name . ' - ' . $lead->title" :closeMethodName="'closeLead'">
+            <livewire:forms.lead-form :board="$board" :lead="$lead"/>
+        </x-popup.focused-content>
     @endif
 </div>

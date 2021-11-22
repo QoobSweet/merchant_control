@@ -15,6 +15,7 @@ class CreateStatusCollectionsTable extends Migration
     {
         Schema::create('status_collections', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('board_id');
             $table->string('label')->unique();
             $table->string('lead_key')->unique();
             $table->timestamps();

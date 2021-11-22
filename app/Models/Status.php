@@ -9,6 +9,8 @@ class Status extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['label'];
+
     /**
      * @var mixed|string
      */
@@ -21,8 +23,12 @@ class Status extends Model
      * Grab all leads with current status
      */
     public function leads()
-
     {
         return $this->hasMany(Lead::class);
+    }
+
+    public function ariaColor()
+    {
+        return $this->hasOne(AriaColor::class, 'id', 'aria_color_id');
     }
 }

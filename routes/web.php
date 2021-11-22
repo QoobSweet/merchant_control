@@ -25,9 +25,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])
         ->name('dashboard');
 
-    //show all boards
-    Route::get('/boards', [BoardsController::class, 'show'])
-        ->name('boards');
+
+    Route::get('/board-settings', [BoardsController::class, 'settings'])
+        ->name('editBoard');
 
     Route::get('/board/{board_id}', function ($board_id) {
         return [BoardController::class, 'show'];

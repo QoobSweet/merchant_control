@@ -1,7 +1,7 @@
-<div class="flex mb-2">
+<div class="flex flex-col mb-2">
     @if(!isset($type))
         @if(!isset($readonly) || !$readonly)
-            <input type="text" class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            <input type="text" class="text-sm shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 wire:model="{{ $fieldName }}"
                 name="{{ $fieldName }}"
                 title="{{ $fieldLabel }}"
@@ -18,7 +18,7 @@
         @endif
     @elseif($type == "select" && isset($options))
         @if(!isset($readonly) || !$readonly)
-            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            <select class="text-sm shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 wire:model="{{ $fieldName }}"
                 name="country"
                 title="Select {{ $fieldLabel }}"

@@ -1,5 +1,12 @@
 <!-- Form Content -->
 <div class="flex-grow mt-2 p-2 bg-gray-100">
+    @if(isset($lead))
+        <div class="flex flex-row mx-5 mb-2 rounded-full bg-white align-middle space-x-2">
+            <div wire:click="toggleLeadDisplayCard" class="flex flex-grow py-1 px-3 hover:bg-blue-100 rounded-full text-center cursor-pointer">
+                <a class="flex-grow m-auto text-xs text-blue-400 hover:text-black ">Overview</a>
+            </div>
+        </div>
+    @endif
     <div class="flex flex-grow min-w-50">
         <form wire:submit.prevent="submitLead" class="flex flex-col flex-grow">
             <!-- Main Form Layout -->
@@ -18,7 +25,7 @@
                             </div>
                         </div>
                         <!-- Company Info -->
-                        <div class="flex flex-col flex-grow">
+                        <div class="flex flex-col flex-grow mt-2">
                             <h3 class="font-bold mb-2 border-b-2 border-gray-300">Company Info</h3>
                             <div class="flex flex-col">
                                 <x-form.field :fieldLabel="'Company Name'" :fieldName="'company_name'"/>

@@ -36,7 +36,6 @@ class SectionForm extends Component
     public function submitSection()
     {
         $this->validate();
-        $this->emit('stopFocusing');
 
         $fields = [
             'title' => $this->title,
@@ -46,11 +45,12 @@ class SectionForm extends Component
         if ($this->section) {
             $this->section->fill($fields);
             $this->section->save();
+            $this->emit('closeSection');
         } else {
             $this->board->sections()->create($fields);
+            $this->emit('stopCreating');
         }
 
-        $this->emit('updateSections');
         $this->emit('updateBoard');
     }
 
@@ -60,9 +60,7 @@ class SectionForm extends Component
     }
 
     public function removeSection() {
-        $this->emit('stopFocusing');
-
-        $this->section->delete();
-        $this->emit('updateBoard');
+        $this->emit('closeSection');
+        $this->emit('removeSection', $this->section);
     }
 }
