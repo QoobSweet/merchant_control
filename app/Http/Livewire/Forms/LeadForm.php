@@ -34,6 +34,8 @@ class LeadForm extends Component
     public $stateOptions;
     public $countryOptions;
 
+    public $editingProperties = true;
+
     protected $rules = [
         'title' => 'required|min:5',
         'contact_name' => 'required|min:3',
@@ -49,6 +51,7 @@ class LeadForm extends Component
         $this->stateOptions = $this->statusOptions->where('status_collection_id', 1);
 
         if ($this->lead) {
+            $this->editingProperties = false;
             $this->title = $lead->title;
             $this->contact_name = $lead['contact_name'];
             $this->contact_phone = $lead['contact_phone'];
@@ -76,7 +79,7 @@ class LeadForm extends Component
             'contact_phone' => $this->contact_phone,
             'contact_email' => $this->contact_email,
             'company_name' => $this->company_name,
-            'company_phone' => intval($this->company_phone),
+            'company_phone' => $this->company_phone,
             'company_website' => $this->company_website,
             'company_address_line_one' => $this->company_address,
             'company_city' => $this->company_city,
@@ -106,6 +109,14 @@ class LeadForm extends Component
 
     public function render()
     {
-        return view('livewire.forms.lead-form');
+        if ($this->lead && !$this->editingProperties) {
+            return view('livewire.forms.lead-form');
+        } else {
+            return view('livewire.forms.lead-form', ['editingProperties' => true]);
+        }
+    }
+
+    public function toggleLeadDisplayCard() {
+        $this->editingProperties = !$this->editingProperties;
     }
 }
