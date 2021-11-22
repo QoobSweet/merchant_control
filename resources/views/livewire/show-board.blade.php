@@ -16,8 +16,13 @@
 
     <!-- Hidden Focusable Sections -->
     @if($creatingSection)
-        <livewire:forms.section-form :board="$board" />
+        <x-popup.focused-content :title="'Creating Section'" :closeMethodName="'stopCreating'">
+            <livewire:forms.section-form :board="$board" />
+        </x-popup.focused-content>
     @elseif($creatingLead)
-        <livewire:forms.lead-form :board="$board" />
+        <!-- Creating Lead -->
+        <x-popup.focused-content :title="'Creating Lead'" :closeMethodName="'stopCreating'">
+            <livewire:forms.lead-form :board="$board"/>
+        </x-popup.focused-content>
     @endif
 </div>

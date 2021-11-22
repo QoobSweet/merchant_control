@@ -97,14 +97,13 @@ class LeadForm extends Component
             $this->board->leads()->create($fields);
         }
 
-        $this->emit('stopFocusing');
-        $this->emit('updateLeads');
+        $this->emit('updateSections');
+        $this->emit('stopCreating');
     }
 
     public function removeLead() {
         $this->lead->delete();
-        $this->emit('stopFocusing');
-        $this->emit('updateLeads');
+        $this->emit('updateSections');
     }
 
     public function render()

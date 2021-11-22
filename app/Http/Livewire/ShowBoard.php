@@ -19,26 +19,23 @@ class ShowBoard extends Component
     public $creatingSection = false;
     public $creatingLead = false;
 
-    protected $listeners = ['updateSections','createSection', 'editSection', 'createLead', 'editLead', 'stopFocusing'];
+    protected $listeners = ['updateBoard', 'createSection', 'editSection', 'createLead', 'editLead', 'stopCreating'];
 
     public function render()
     {
         $this->board = $this->board->fresh();
-        
+
         return view('livewire.show-board');
     }
 
     public function updateBoard() { $this->board = $this->board->fresh(); }
-    public function updateSections() { $this->board = $this->board->fresh(); }
 
     public function createLead() { $this->creatingLead = true; }
     public function createSection() { $this->creatingSection = true; }
 
-    public function stopFocusing()
+    public function stopCreating()
     {
         $this->creatingSection = false;
         $this->creatingLead = false;
-
-        $this->render();
     }
 }

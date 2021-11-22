@@ -21,7 +21,9 @@
 
     <!-- Hidden Focusable Sections -->
     @if($editingProperties)
-        <livewire:forms.section-form :board="$section->board" :section="$section"/>
+        <x-popup.focused-content :title="'New Section'" :closeMethodName="'closeSection'">
+            <livewire:forms.section-form :board="$section->board" :section="$section"/>
+        </x-popup.focused-content>
     @endif
 </div>
 

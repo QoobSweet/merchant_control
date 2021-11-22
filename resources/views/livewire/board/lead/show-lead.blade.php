@@ -24,6 +24,15 @@
 
     <!-- Hidden Focusable Sections -->
     @if($editingProperties)
-        <livewire:forms.lead-form :board="$board" :lead="$lead"/>
+        @if(!$lead)
+            <!-- Creating Lead -->
+            <x-popup.focused-content :title="'Creating Lead'" :closeMethodName="'closeLead'">
+                <livewire:forms.lead-form :board="$board"/>
+            </x-popup.focused-content>
+        @else
+            <x-popup.focused-content :title="$lead->contact_name . ' - ' . $lead->title" :closeMethodName="'closeLead'">
+                <livewire:forms.lead-form :board="$board" :lead="$lead"/>
+            </x-popup.focused-content>
+        @endif
     @endif
 </div>
