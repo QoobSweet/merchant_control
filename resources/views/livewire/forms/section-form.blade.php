@@ -20,10 +20,7 @@
                                 <button wire:click="removeSection" type="button" class="flex-grow mt-10 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                             @endif
 
-                            <button wire:loading.delay.longest.remove type="submit" class="flex-grow mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
-                        </div>
-                        <div wire:loading.delay.longest class="flex-grow">
-                            Saving...
+                            <button type="submit" class="flex-grow mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
                         </div>
                     </div>
                 </form>
