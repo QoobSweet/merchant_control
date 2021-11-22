@@ -60,9 +60,9 @@ class SectionForm extends Component
     }
 
     public function removeSection() {
-        $this->section->delete();
         $this->emit('stopFocusing');
-        $this->emit('updateSections');
+
+        $this->section->delete();
         $this->emit('updateBoard');
     }
 }

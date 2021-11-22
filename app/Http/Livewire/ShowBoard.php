@@ -24,11 +24,8 @@ class ShowBoard extends Component
     public function render()
     {
         $this->board = $this->board->fresh();
-
-        return view('livewire.show-board', [
-            'sections' => $this->board->sections,
-            'leads' => $this->board->leads
-        ]);
+        
+        return view('livewire.show-board');
     }
 
     public function updateBoard() { $this->board = $this->board->fresh(); }
