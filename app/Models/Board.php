@@ -9,6 +9,8 @@ class Board extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Grab Board Owner
      */

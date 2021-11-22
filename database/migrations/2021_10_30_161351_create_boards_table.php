@@ -16,10 +16,10 @@ class CreateBoardsTable extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('team_id');
-            $table->boolean('is_personal');
+            $table->foreignId('team_id')->nullable();
+            $table->boolean('is_personal')->default(true);
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

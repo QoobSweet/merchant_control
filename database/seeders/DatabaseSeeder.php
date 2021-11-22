@@ -98,11 +98,17 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // create Admin User
+        // create Default Users
         $user = new User();
-        $user->name = "admin";
+        $user->name = "Kevin";
         $user->email = "kevina@everymerchant.com";
         $user->password = "$2y$10\$i/J62kOU/aQzjn3TyFxLUOAlWe4rSTd9wQ8ChYlRg.YlXA4LcJQgS";
+        $user->save();
+
+        $user = new User();
+        $user->name = "Jonathan";
+        $user->email = "johnl@everymerchant.com";
+        $user->password = "$2y$10\$Zs6lrDotH92odRaE8ARnEOPTnlBsom7p9E2YqgI1py.gpVdFmwFou";
         $user->save();
 
         // Create Admin Team using user
@@ -142,6 +148,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id,
             'team_id' => $team->id
         ]);
+
         $board2 = Board::create([
             'title' => 'sample Board 2',
             'description' => 'sample Description.',
