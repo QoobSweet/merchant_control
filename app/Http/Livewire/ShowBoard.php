@@ -31,7 +31,8 @@ class ShowBoard extends Component
         ]);
     }
 
-    public function updateBoard() { $this->render(); }
+    public function updateBoard() { $this->board = $this->board->fresh(); }
+    public function updateSections() { $this->board = $this->board->fresh(); }
 
     public function createLead() { $this->creatingLead = true; }
     public function createSection() { $this->creatingSection = true; }

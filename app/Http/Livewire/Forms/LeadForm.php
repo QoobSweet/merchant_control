@@ -39,7 +39,7 @@ class LeadForm extends Component
     protected $rules = [
         'title' => 'required|min:5',
         'contact_name' => 'required|min:3',
-        'contact_phone' => 'required|max:10|min:10',
+        'contact_phone' => 'required',
         'state_status_id' => 'required',
     ];
 
@@ -57,7 +57,7 @@ class LeadForm extends Component
             $this->contact_phone = $lead['contact_phone'];
             $this->contact_email = $lead['contact_email'];
             $this->company_name = $lead['company_name'];
-            $this->company_phone = $lead['company_phone'];
+            $this->company_phone = $lead['company_phone'] === 0 | null ? '' : $lead['company_phone'];
             $this->company_website = $lead['company_website'];
             $this->company_address = $lead['company_address_line_one'];
             $this->company_city = $lead['company_city'];
