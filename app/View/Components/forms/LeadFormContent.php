@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\form;
+namespace App\View\Components\forms;
 
 use Illuminate\View\Component;
 
-class field extends Component
+class LeadFormContent extends Component
 {
     /**
      * Create a new component instance.
@@ -13,7 +13,7 @@ class field extends Component
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -23,6 +23,6 @@ class field extends Component
      */
     public function render()
     {
-        return view('components.form.field');
+        return view('components.forms.lead-form-content');
     }
 }

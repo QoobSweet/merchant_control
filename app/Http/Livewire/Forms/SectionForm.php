@@ -36,6 +36,7 @@ class SectionForm extends Component
     public function submitSection()
     {
         $this->validate();
+        $this->emit('stopFocusing');
 
         $fields = [
             'title' => $this->title,
@@ -49,11 +50,19 @@ class SectionForm extends Component
             $this->board->sections()->create($fields);
         }
 
-        $this->emit('stopFocusing');
+        $this->emit('updateSections');
+        $this->emit('updateBoard');
     }
 
     public function render()
     {
         return view('livewire.forms.section-form');
+    }
+
+    public function removeSection() {
+        $this->section->delete();
+        $this->emit('stopFocusing');
+        $this->emit('updateSections');
+        $this->emit('updateBoard');
     }
 }
