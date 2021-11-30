@@ -16,8 +16,6 @@ class Status extends Model
      */
     public $name;
 
-
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      * Grab all leads with current status

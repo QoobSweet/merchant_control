@@ -12,14 +12,14 @@
         <div class="flex flex-grow flex-row flex-wrap">
             <x-board.column-wrapper :title="'Status\'s'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
                 <div class="m-2 bg-white rounded-md">
-                    <ul>
+                    <ul class="m-2 p-2 bg-gray-100 h-32">
                         @foreach($board->statusCollections[0]->statuses as $status)
-                            <livewire:board.status.show-status :status="$status" :wire:key="$status->id" />
+                            <livewire:board.status.show-status :board="$board" :status="$status" :wire:key="$status->id" />
                         @endforeach
                     </ul>
 
                     <!-- Add New Status -->
-                    <div class="mt-5">
+                    <div class="mt-10 p-3">
                         <x-form.wrapper :action="'submitStatus'">
                             <x-form.field :fieldLabel="'New Status'" :fieldName="'statusField'"/>
                             <x-form.button :type="'submit'" :label="'Create Status'" />
