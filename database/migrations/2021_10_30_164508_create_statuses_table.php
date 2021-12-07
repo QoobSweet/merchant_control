@@ -17,7 +17,7 @@ class CreateStatusesTable extends Migration
             $table->id();
             $table->foreignId('status_collection_id');
             $table->foreignId('aria_color_id')->nullable();
-            $table->string('label')->unique();
+            $table->string('label');
             $table->timestamps();
         });
     }
