@@ -58,12 +58,9 @@
                             <h3 class="font-bold mb-2 border-b-2 border-gray-300">Lead Details</h3>
                             <!-- Lead Details -->
                             <div class="flex flex-col">
-                                <div class="flex-grow">
-                                    <x-form.field :fieldLabel="'Lead Status'" :fieldName="'state_status_id'" :type="'select'" :options="$stateOptions" />
-                                </div>
-                                <div class="flex-grow">
-                                    <x-form.field :fieldLabel="'Lead Value'" :fieldName="'value_status_id'" :type="'select'" :options="$valueOptions" />
-                                </div>
+                                    @foreach($board->statusCollections as $collection)
+                                        <x-form.field :fieldLabel="$collection->label" :fieldName="'statuses.'.$collection->label" :type="'select'" :options="$collection->statuses" />
+                                    @endforeach
                             </div>
                         </div>
                     </div>

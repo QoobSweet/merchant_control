@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $with = ['lead';
+    protected $with = ['lead'];
     protected $fillable = ['message'];
 
     public function user()

@@ -10,6 +10,8 @@ class StatusCollection extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['label'];
+
     public function statuses()
     {
         return $this->hasMany(Status::class);

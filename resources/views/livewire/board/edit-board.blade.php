@@ -1,30 +1,51 @@
 <div id="full-content-wrapper" class="flex flex-col flex-grow bg-gray-400">
     <!-- Main Content -->
-    <div id="board-content" class="flex flex-col flex-grow p-1">
+    <div id="board-content" class="flex flex-col flex-grow">
         <!-- Header -->
-        <div id="board-header" class="flex flex-grow max-h-10 bg-gray-700 text-white">
+        <div id="board-header" class="flex flex-grow max-h-10 bg-blue-500 text-white">
             <div class="my-auto inline-flex">
                 <h1 class="flex h-full my-auto mx-4 text-center">{{ ucfirst($board->title) }}</h1>
                 <x-svg.edit-pen />
             </div>
         </div>
 
-        <div class="flex flex-grow flex-row flex-wrap">
-            <x-board.column-wrapper :title="'Status\'s'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
-                <div class="m-2 bg-white rounded-md">
-                    <ul class="m-2 p-2 bg-gray-100 h-32">
-                        @foreach($board->statusCollections[0]->statuses as $status)
-                            <livewire:board.status.show-status :board="$board" :status="$status" :wire:key="$status->id" />
+        <div class="flex flex-grow flex-row flex-nowrap overflow-x-auto">
+            <x-board.column-wrapper :title="'Modify Status Collections'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
+                <div class="flex flex-col m-2 p-2 bg-white rounded-md">
+                    <h2 class="font-bold m-auto underline">Available Collections</h2>
+                    <ul class="m-1 p-1 space-y-2">
+                        @foreach($board->statusCollections as $collection)
+                            <livewire:board.status-collection.show-collection :board="$board" :collection="$collection" :wire:key="'collection_'.$collection->id" />
                         @endforeach
                     </ul>
+                </div>
+                <div class="flex flex-col flex-grow m-2 p-2 bg-white rounded-md">
+                    <h2 class="font-bold m-auto underline">Create New Status Collection</h2>
+                    <livewire:forms.status-collection-form :board="$board" :creating="true"/>
+                </div>
+            </x-board.column-wrapper>
 
-                    <!-- Add New Status -->
-                    <div class="mt-10 p-3">
-                        <x-form.wrapper :action="'submitStatus'">
-                            <x-form.field :fieldLabel="'New Status'" :fieldName="'statusField'"/>
-                            <x-form.button :type="'submit'" :label="'Create Status'" />
-                        </x-form.wrapper>
-                    </div>
+            <x-board.column-wrapper :title="'Modify Status\'s'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
+                <div class="flex flex-col m-2 p-2 bg-white rounded-md">
+                    <h2 class="font-bold m-auto underline">Available Status's</h2>
+                    <ul class="m-2 p-2 space-y-1">
+                        @foreach($board->statusCollections as $collection)
+                            @if(count($collection->statuses) > 0)
+                                <li>
+                                    <h2 class="font-bold underline">{{ ucfirst($collection->label) }}</h2>
+                                    <ul class="ml-2">
+                                    @foreach($collection->statuses as $status)
+                                        <livewire:board.status.show-status :board="$board" :status="$status" :wire:key="'status_'.$status->id" />
+                                    @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="flex flex-col flex-grow m-2 p-2 bg-white rounded-md">
+                    <h2 class="font-bold m-auto underline">Create New Status</h2>
+                    <livewire:forms.status-form :board="$board" :creating="true"/>
                 </div>
             </x-board.column-wrapper>
 

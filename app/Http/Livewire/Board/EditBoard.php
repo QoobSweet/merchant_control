@@ -7,10 +7,11 @@ use Livewire\Component;
 class EditBoard extends Component
 {
     public $board;
-    public $statuses;
+    public $collectionField;
     public $statusField;
 
-    public $listeners = ['updateBoard', 'updateStatuses'];
+
+    public $listeners = ['updateBoard', 'updateStatuses', 'updateCollections'];
 
     protected $rules = [
         'statusField' => 'required'
@@ -22,21 +23,16 @@ class EditBoard extends Component
         return view('livewire.board.edit-board');
     }
 
-    public function updateBoard()
-    {
-        $this->board = $this->board->fresh();
-    }
+    public function updateBoard() { $this->board = $this->board->fresh(); }
 
-    public function updateStatuses()
-    {
-        $this->statuses = $this->board->statuses->fresh();
-    }
+    public function updateStatuses() { $this->updateBoard(); }
+    public function updateCollections() { $this->updateBoard(); }
 
     public function submitStatus()
     {
         $this->validate();
 
-        $this->board->statusCollections[0]->statuses()->create([
+        $this->board->statuses()->create([
             'label' => $this->statusField
         ]);
 

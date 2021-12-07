@@ -2,8 +2,7 @@
     <div name="lead_content" class="flex flex-col flex-grow mt-0 mb-[3px] ml-0 mr-px rounded bg-white">
         <!-- Lead Context Bars -->
         <div id="lead_context_bars" class="flex h-2 m-1">
-            <div class="w-1/5 ml-1 {{ $lead->stateAriaColor() }} rounded-full"></div>
-            <div class="w-3/5 ml-1 {{ $lead->valueAriaColor() }} rounded-full"></div>
+            <div class="w-1/5 ml-1 rounded-full"></div>
         </div>
 
         <!-- Lead Excerpt Content -->
