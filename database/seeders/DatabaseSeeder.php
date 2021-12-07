@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
         $user1->save();
 
         $user2 = new User();
-        $user2->name = "Jonathan";
+        $user2->name = "John";
         $user2->email = "johnl@everymerchant.com";
         $user2->password = "$2y$10\$Zs6lrDotH92odRaE8ARnEOPTnlBsom7p9E2YqgI1py.gpVdFmwFou";
         $user2->save();
