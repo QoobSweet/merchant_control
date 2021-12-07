@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectionsTable extends Migration
+class CreateSectionStatusSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('section_status_subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('board_id');
-            $table->integer('order_weight')->default(0);
-            $table->string('title')->default('New Section');
+            $table->foreignId('section_id');
+            $table->foreignId('status_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('section_status_subscriptions');
     }
 }

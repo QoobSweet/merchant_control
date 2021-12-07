@@ -1,3 +1,3 @@
-<div wire:click="{{ $action ?? '' }}" class="p-1">
+<div wire:click="{{ $action ?? '' }}" title="{{ $title ?? '' }}" class="p-1">
     {{ $slot }}
 </div>

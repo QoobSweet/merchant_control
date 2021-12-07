@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,10 @@ class Lead extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'statuses' => 'array'
+    ];
+
     public function board()
     {
         return $this->belongsTo(Board::class);
@@ -23,27 +28,16 @@ class Lead extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function stateStatus()
+    /**
+     * @StatusCollection $collection
+     */
+    public function getCollectionStatusValue($statusCollection)
     {
-        return $this->hasOne(Status::class, 'id', 'state_status_id');
+        return $this->statuses[$statusCollection->key];
     }
 
-    public function valueStatus()
+    public function setCollectionStatusValue($collection, $statusId)
     {
-        return $this->hasOne(Status::class, 'id', 'value_status_id');
-    }
-
-    public function valueAriaColor()
-    {
-        if ($this->valueStatus) {
-            return $this->valueStatus->ariaColor['aria_color_tag'];
-        }
-
-        return null;
-    }
-
-    public function stateAriaColor()
-    {
-        return $this->stateStatus->ariaColor['aria_color_tag'];
+        $this->statuses[$collection->id] = $statusId;
     }
 }

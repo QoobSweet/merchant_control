@@ -8,7 +8,7 @@
 
         <div class="flex flex-grow flex-row flex-wrap">
             @foreach($board->sections as $section)
-                <livewire:board.show-section :board="$board" :section="$section" :wire:key="$section->id" />
+                <livewire:board.show-section :board="$board" :section="$section" :wire:key="'section_' . $section->id" />
             @endforeach
 
             <!-- Action Button For Creating Sections -->
@@ -19,12 +19,12 @@
     <!-- Hidden Focusable Sections -->
     @if($creatingSection) <!-- Creating Section -->
         <x-popup.focused-content :title="'Creating Section'" :closeMethodName="'stopCreating'">
-            <livewire:forms.section-form :board="$board" />
+            <livewire:forms.section-form :board="$board" wire:poll />
         </x-popup.focused-content>
     @endif
     @if($creatingLead) <!-- Creating Lead -->
         <x-popup.focused-content :title="'Creating Lead'" :closeMethodName="'stopCreating'">
-            <livewire:forms.lead-form :board="$board"/>
+            <livewire:forms.lead-form :board="$board" />
         </x-popup.focused-content>
     @endif
 </div>

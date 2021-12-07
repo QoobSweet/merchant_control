@@ -17,8 +17,6 @@ class CreateLeadsTable extends Migration
             $table->id();
             $table->string('title')->default('New Lead');
             $table->foreignId('board_id');
-            $table->foreignId('state_status_id')->default(1);
-            $table->foreignId('value_status_id')->nullable();
 
             $table->integer('order_weight')->default(0);
             $table->string('contact_name')->nullable();
@@ -31,6 +29,7 @@ class CreateLeadsTable extends Migration
             $table->string('company_city')->nullable();
             $table->string('company_state')->nullable();
             $table->integer('company_zip_code')->nullable();
+            $table->string('statuses')->nullable();
 
             $table->timestamps();
         });

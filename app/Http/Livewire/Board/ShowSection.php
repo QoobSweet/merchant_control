@@ -17,12 +17,19 @@ class ShowSection extends Component
 
     public function render()
     {
+        $subscriptions = $this->section->sectionStatusSubscriptions;
+
         // filter for leads tracked by this section
-        $leads = $this->board->leads->filter(function ($lead) {
-            $statusIds = $this->section->getStatusIds();
-            $matchingState = in_array($lead->state_status_id, $statusIds);
-            $matchingValue = in_array($lead->value_status_id, $statusIds);
-            return $matchingState || $matchingValue;
+        $leads = $this->board->leads->filter(function ($lead) use ($subscriptions) {
+            foreach ($subscriptions as $subscription) {
+                $subscribedStatusId = $subscription->status_id;
+
+                foreach($lead->statuses as $collectionLabel => $id) {
+                    if ($subscribedStatusId === intval($id)) { return true; }
+                }
+            }
+
+            return false;
         });
 
         return view('livewire.board.show-section', [

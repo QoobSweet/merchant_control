@@ -133,26 +133,14 @@ class DatabaseSeeder extends Seeder
             'team_id' => $adminTeam->id
         ]);
 
-        $ariaColorLightRed = AriaColor::create(['name' => 'Light Red', 'aria_color_tag' => 'bg-red-300']);
-        $ariaColorRed = AriaColor::create(['name' => 'Red', 'aria_color_tag' => 'bg-red-500']);
-        $ariaColorDarkRed = AriaColor::create(['name' => 'Dark Red', 'aria_color_tag' => 'bg-red-700']);
-        $ariaColorLightBlue = AriaColor::create(['name' => 'Light Blue', 'aria_color_tag' => 'bg-blue-300']);
-        $ariaColorBlue = AriaColor::create(['name' => 'Blue', 'aria_color_tag' => 'bg-blue-500']);
-        $ariaColorDarkBlue = AriaColor::create(['name' => 'Dark Blue', 'aria_color_tag' => 'bg-blue-700']);
-        $ariaColorLightGreen = AriaColor::create(['name' => 'Light Green', 'aria_color_tag' => 'bg-green-300']);
-        $ariaColorGreen = AriaColor::create(['name' => 'Green', 'aria_color_tag' => 'bg-green-500']);
-        $ariaColorDarkGreen = AriaColor::create(['name' => 'Dark Green', 'aria_color_tag' => 'bg-green-700']);
-
-        // create Status Collections
-        $stateCollection =  StatusCollection::create(['board_id' => $board1->id, 'label' => 'state', 'lead_key' => 'state_status_id']);
-        $valueCollection = StatusCollection::create(['board_id' => $board1->id, 'label' => 'value', 'lead_key' => 'value_status_id']);
-
-        // create root Lead Status tree
-        $newLeadState = Status::create(['label' => 'New Lead', 'aria_color_id' => $ariaColorLightBlue->id, 'status_collection_id' => $stateCollection->id]);
-
-        // create Lead Value Status tree
-        $lowValue = Status::create(['label' => 'Low Value', 'aria_color_id' => $ariaColorBlue->id, 'status_collection_id' => $valueCollection->id]);
-        $medValue = Status::create(['label' => 'Medium Value', 'aria_color_id' => $ariaColorGreen->id, 'status_collection_id' => $valueCollection->id]);
-        $highValue = Status::create(['label' => 'High Value', 'aria_color_id' => $ariaColorRed->id, 'status_collection_id' => $valueCollection->id]);
+        $ariaColorLightRed = AriaColor::create(['name' => 'Light Red', 'aria_color_tag' => 'red-300']);
+        $ariaColorRed = AriaColor::create(['name' => 'Red', 'aria_color_tag' => 'red-500']);
+        $ariaColorDarkRed = AriaColor::create(['name' => 'Dark Red', 'aria_color_tag' => 'red-700']);
+        $ariaColorLightBlue = AriaColor::create(['name' => 'Light Blue', 'aria_color_tag' => 'blue-300']);
+        $ariaColorBlue = AriaColor::create(['name' => 'Blue', 'aria_color_tag' => 'blue-500']);
+        $ariaColorDarkBlue = AriaColor::create(['name' => 'Dark Blue', 'aria_color_tag' => 'blue-700']);
+        $ariaColorLightGreen = AriaColor::create(['name' => 'Light Green', 'aria_color_tag' => 'green-300']);
+        $ariaColorGreen = AriaColor::create(['name' => 'Green', 'aria_color_tag' => 'green-500']);
+        $ariaColorDarkGreen = AriaColor::create(['name' => 'Dark Green', 'aria_color_tag' => 'green-700']);
     }
 }

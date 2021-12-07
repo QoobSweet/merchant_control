@@ -10,6 +10,7 @@ class LeadForm extends Component
 {
     public $board;
     public $lead = null;
+
     public $title;
     public $contact_name;
     public $contact_phone;
@@ -22,8 +23,7 @@ class LeadForm extends Component
     public $company_state;
     public $company_zip_code;
     public $company_country_id;
-    public $value_status_id;
-    public $state_status_id;
+    public $statuses;
 
     // build options for select drop downs
     public $statusOptions;
@@ -37,17 +37,19 @@ class LeadForm extends Component
         'title' => 'required|min:5',
         'contact_name' => 'required|min:3',
         'contact_phone' => 'required',
-        'state_status_id' => 'required',
     ];
 
     public function mount(SessionManager $session, $board, $lead = null)
     {
-        $this->lead = $lead;
-        $this->statusOptions = Status::all();
-        $this->valueOptions = $this->statusOptions->where('status_collection_id', 2);
-        $this->stateOptions = $this->statusOptions->where('status_collection_id', 1);
+        $this->board = $board;
 
-        if ($this->lead) {
+        // setup field variable array for collections
+        foreach ($this->board->statusCollections as $collection) {
+            $this->statuses[$collection->label] =  '';
+        }
+
+        if ($lead) {
+            $this->lead = $lead;
             $this->editingProperties = false;
             $this->title = $lead->title;
             $this->contact_name = $lead['contact_name'];
@@ -61,8 +63,7 @@ class LeadForm extends Component
             $this->company_state = $lead['company_state'];
             $this->company_zip_code = $lead['company_zip_code'];
             //$this->company_country_id = $lead['company_country_id'];
-            $this->value_status_id = $lead['value_status_id'];
-            $this->state_status_id = $lead['state_status_id'];
+            $this->statuses = $lead->statuses;
         }
     }
 
@@ -83,8 +84,7 @@ class LeadForm extends Component
             'company_state' => $this->company_state,
             'company_zip_code' => $this->company_zip_code,
             //'company_country_id' => $this->company_country_id,
-            'state_status_id' => $this->state_status_id,
-            'value_status_id' => $this->value_status_id
+            'statuses' => $this->statuses
         ];
 
         if ($this->lead) {

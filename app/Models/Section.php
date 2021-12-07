@@ -19,13 +19,13 @@ class Section extends Model
         return $this->belongsTo(Board::class);
     }
 
-    /**
-     * Get Tracked Status's
-     *
-     * @return collection of subscribed status's
-     */
-    public function getStatusIds()
+    public function sectionStatusSubscriptions()
     {
-        return explode(',', str_replace(' ', '', $this['status_ids']));
+        return $this->hasMany(SectionStatusSubscription::class, 'section_id', 'id');
+    }
+
+    public function statuses()
+    {
+        return $this->hasManyThrough(Status::class, SectionStatusSubscription::class, 'section_id', 'id', 'id', 'status_id');
     }
 }
