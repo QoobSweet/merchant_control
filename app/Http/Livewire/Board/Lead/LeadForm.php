@@ -1,15 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Forms;
+namespace App\Http\Livewire\Board\Lead;
 
 use App\Models\Status;
+use App\Models\User;
+use App\Models\UserActions;
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class LeadForm extends Component
 {
     public $board;
     public $lead = null;
+    public $editing = true;
 
     public $title;
     public $contact_name;
@@ -31,8 +35,6 @@ class LeadForm extends Component
     public $stateOptions;
     public $countryOptions;
 
-    public $editingProperties = true;
-
     protected $rules = [
         'title' => 'required|min:5',
         'contact_name' => 'required|min:3',
@@ -42,6 +44,7 @@ class LeadForm extends Component
     public function mount(SessionManager $session, $board, $lead = null)
     {
         $this->board = $board;
+        $this->editing = true;
 
         // setup field variable array for collections
         foreach ($this->board->statusCollections as $collection) {
@@ -50,7 +53,7 @@ class LeadForm extends Component
 
         if ($lead) {
             $this->lead = $lead;
-            $this->editingProperties = false;
+            $this->editing = false;
             $this->title = $lead->title;
             $this->contact_name = $lead['contact_name'];
             $this->contact_phone = $lead['contact_phone'];
@@ -71,6 +74,8 @@ class LeadForm extends Component
     {
         $this->validate();
 
+        $user = User::find(Auth::user()->id);
+
         $fields = [
             'title' => $this->title,
             'contact_name' => $this->contact_name,
@@ -87,12 +92,36 @@ class LeadForm extends Component
             'statuses' => $this->statuses
         ];
 
+        $userActionFields = [
+            'user_id' => $user->id,
+            'old_model' => $this->lead ? clone($this->lead) : null
+        ];
+
         if ($this->lead) {
+            // build action to be saved, and clone old lead before values are filled
             $this->lead->fill($fields);
             $this->lead->save();
-            $this->emit('closeLead');
+
+
+            // save new model to action and save
+            $userActionFields['new_model'] = $this->lead->toArray();
+            $userActionFields['lead_id'] = $this->lead->id;
+
+            $userAction = $this->board->userActions()->create($userActionFields);
+
+            $this->editing = false;
         } else {
-            $this->board->leads()->create($fields);
+            $lead = $this->board->leads()->create($fields);
+
+            // save new model to action and save
+            $userActionFields['new_model'] = $lead->toArray();
+            $userActionFields['lead_id'] = $lead->id;
+            $this->board->userActions()->create($userActionFields);
+            $lead->transactions()->create([
+                'amount' => 0,
+                'comment' => 'Starting Balance.'
+            ]);
+
             $this->emit('stopCreating');
         }
 
@@ -106,14 +135,14 @@ class LeadForm extends Component
 
     public function render()
     {
-        if ($this->lead && !$this->editingProperties) {
-            return view('livewire.forms.lead-form');
-        } else {
-            return view('livewire.forms.lead-form', ['editingProperties' => true]);
-        }
+        return view('livewire.board.lead.lead-form');
     }
 
-    public function toggleLeadDisplayCard() {
-        $this->editingProperties = !$this->editingProperties;
+    public function editLead() {
+        $this->editing = true;
+    }
+
+    public function stopEditing() {
+        $this->editing = false;
     }
 }

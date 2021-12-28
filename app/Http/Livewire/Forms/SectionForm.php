@@ -16,11 +16,11 @@ class SectionForm extends Component
     public $title;
 
     public $statusOptions;
-    public $selectedStatusId;
+    public $selectedStatusId = 0;
     public $selectedStatuses;
 
     protected $rules = [
-        'title' => 'required'
+        'title' => 'required',
     ];
 
     public function mount(SessionManager $session, $board, $section = null)
@@ -41,16 +41,17 @@ class SectionForm extends Component
 
 
     public function addTrackedStatus() {
-        $this->selectedStatuses->push(Status::all()->find($this->selectedStatusId));
+        if ($this->selectedStatusId !== 0) {
+            $this->selectedStatuses->push(Status::all()->find($this->selectedStatusId));
+            $this->selectedStatusId = 0;
+        }
     }
 
     public function submitSection()
     {
         $this->validate();
 
-        $fields = [
-            'title' => ucfirst($this->title)
-        ];
+        $fields = [ 'title' => ucfirst($this->title) ];
 
         if ($this->section) {
             $this->section->fill($fields);

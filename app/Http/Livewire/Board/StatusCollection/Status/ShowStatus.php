@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Board\Status;
+namespace App\Http\Livewire\Board\StatusCollection\Status;
 
 use App\Models\AriaColor;
 use Illuminate\Session\SessionManager;
@@ -26,7 +26,7 @@ class ShowStatus extends Component
 
     public function render()
     {
-        return view('livewire.board.status.show-status');
+        return view('livewire.board.status-collection.status.show-status');
     }
 
     public function editStatus() { $this->editingProperties = true; }

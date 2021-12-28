@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Board;
 
 use App\Models\Section;
 use Livewire\Component;
@@ -19,7 +19,7 @@ class ShowBoard extends Component
     {
         $this->board = $this->board->fresh();
 
-        return view('livewire.show-board');
+        return view('livewire.board.show-board');
     }
 
     public function updateBoard() { $this->board = $this->board->fresh(); }

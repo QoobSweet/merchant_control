@@ -3,7 +3,7 @@
         <!-- Add New Collection -->
         <x-form.wrapper :action="'submitCollection'">
             <x-form.field :placeholder="'New Collection'" :fieldLabel="'Label'" :fieldName="'label'" :showLabel="false"/>
-            <x-form.button :type="'submit'" :label="'Create'" />
+            <x-form.button.button :type="'submit'" :label="'Create'" />
         </x-form.wrapper>
     @else
         <!-- Form Content -->
@@ -16,13 +16,13 @@
 
                     <div class="flex flex-grow flex-col space-y-2">
                         <!-- Remove Lead button if lead origin exists -->
-                        <div class="flex flex-grow space-x-2">
+                        <x-form.button.wrapper>
                             @if(isset($collection))
-                                <x-form.button :clickAction="'removeCollection'" :type="'button'" :label="'Delete'" :backgroundColor="'red'"/>
+                                <x-form.button.button :clickAction="'removeCollection'" :type="'button'" :label="'Delete'" :backgroundColor="'red'"/>
                             @endif
 
-                            <x-form.button :type="'submit'" :label="'Save'"/>
-                        </div>
+                            <x-form.button.button :type="'submit'" :label="'Save'"/>
+                        </x-form.button.wrapper>
                     </div>
                 </form>
             </div>

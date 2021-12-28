@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Board;
+namespace App\Http\Livewire\Board\Section;
 
 use App\Models\Lead;
 use Illuminate\Session\SessionManager;
@@ -10,29 +10,23 @@ use Livewire\Component;
 class ShowSection extends Component
 {
     public $board;
-    public $section;
+    public $status;
 
     public $editingProperties = false;
     public $listeners = ['updateSections', 'closeSection'];
 
     public function render()
     {
-        $subscriptions = $this->section->sectionStatusSubscriptions;
-
         // filter for leads tracked by this section
-        $leads = $this->board->leads->filter(function ($lead) use ($subscriptions) {
-            foreach ($subscriptions as $subscription) {
-                $subscribedStatusId = $subscription->status_id;
-
-                foreach($lead->statuses as $collectionLabel => $id) {
-                    if ($subscribedStatusId === intval($id)) { return true; }
-                }
+        $leads = $this->board->leads->filter(function ($lead) {
+            foreach($lead->statuses as $collectionLabel => $statusId) {
+                if (intval($statusId) === $this->status->id) { return true; }
             }
 
             return false;
         });
 
-        return view('livewire.board.show-section', [
+        return view('livewire.board.section.show-section', [
             'leads' => $leads
         ]);
     }

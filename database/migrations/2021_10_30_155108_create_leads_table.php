@@ -23,7 +23,7 @@ class CreateLeadsTable extends Migration
             $table->string('contact_phone')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('company_name')->nullable();
-            $table->integer('company_phone')->nullable();
+            $table->string('company_phone')->nullable();
             $table->string('company_website')->nullable();
             $table->string('company_address_line_one')->nullable();
             $table->string('company_city')->nullable();

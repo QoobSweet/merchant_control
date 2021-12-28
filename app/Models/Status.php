@@ -35,6 +35,11 @@ class Status extends Model
         return $this->belongsToMany(SectionStatusSubscription::class, 'status_id', 'id');
     }
 
+    public function statusCollection()
+    {
+        return $this->belongsTo(StatusCollection::class);
+    }
+
     public function sections()
     {
         return $this->hasManyThrough(Section::class, SectionStatusSubscription::class, 'status_id', 'id', 'id', 'section_id');

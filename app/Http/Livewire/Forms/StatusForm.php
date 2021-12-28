@@ -67,7 +67,12 @@ class StatusForm extends Component
             $this->emit('stopCreating');
         }
 
+        $this->label = '';
+        $this->selectedColorId = 0;
+        $this->selectedCollectionId = 0;
+
         $this->emit('updateBoard');
+        $this->emit('updateStatuses');
     }
 
     public function updateStatusCollections()
