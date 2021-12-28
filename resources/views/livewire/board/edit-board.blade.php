@@ -12,7 +12,7 @@
         <div class="flex flex-grow flex-row flex-nowrap overflow-x-auto">
             <x-board.column-wrapper :title="'Modify Status Collections'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
                 <div class="flex flex-col m-2 p-2 bg-white rounded-md">
-                    <h2 class="font-bold m-auto underline">Available Collections</h2>
+                    <h2 class="font-bold m-auto underline">Tacking Tag Collections</h2>
                     <ul class="m-1 p-1 space-y-2">
                         @foreach($board->statusCollections as $collection)
                             <livewire:board.status-collection.show-collection :board="$board" :collection="$collection" :wire:key="'collection_'.$collection->id" />
@@ -20,31 +20,11 @@
                     </ul>
                 </div>
                 <div class="flex flex-col flex-grow m-2 p-2 bg-white rounded-md">
-                    <h2 class="font-bold m-auto underline">Create New Status Collection</h2>
+                    <h2 class="font-bold m-auto underline">Create New Tag Collection</h2>
                     <livewire:forms.status-collection-form :board="$board" :creating="true"/>
                 </div>
-            </x-board.column-wrapper>
-
-            <x-board.column-wrapper :title="'Modify Status\'s'" :description="'Create and assign status\'s to a collection and modify its tag-color.'" :id="2">
-                <div class="flex flex-col m-2 p-2 bg-white rounded-md">
-                    <h2 class="font-bold m-auto underline">Available Status's</h2>
-                    <ul class="m-2 p-2 space-y-1">
-                        @foreach($board->statusCollections as $collection)
-                            @if(count($collection->statuses) > 0)
-                                <li>
-                                    <h2 class="font-bold underline">{{ ucfirst($collection->label) }}</h2>
-                                    <ul class="ml-2">
-                                    @foreach($collection->statuses as $status)
-                                        <livewire:board.status.show-status :board="$board" :status="$status" :wire:key="'status_'.$status->id" />
-                                    @endforeach
-                                    </ul>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
                 <div class="flex flex-col flex-grow m-2 p-2 bg-white rounded-md">
-                    <h2 class="font-bold m-auto underline">Create New Status</h2>
+                    <h2 class="font-bold m-auto underline">Create New Tag</h2>
                     <livewire:forms.status-form :board="$board" :creating="true"/>
                 </div>
             </x-board.column-wrapper>

@@ -83,5 +83,5 @@ class User extends Authenticatable
         return $board;
     }
 
-
+    public function userActions() { return $this->hasMany(UserActions::class); }
 }

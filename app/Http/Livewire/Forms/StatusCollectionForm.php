@@ -42,6 +42,7 @@ class StatusCollectionForm extends Component
             $this->board->statusCollections()->create($fields);
             $this->emit('stopCreating');
         }
+        $this->label = '';
 
         $this->emit('updateBoard');
         $this->emit('updateStatusCollections');

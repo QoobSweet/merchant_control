@@ -11,8 +11,9 @@ class ShowCollection extends Component
     public $collection;
     public $editingProperties;
 
-    public $listeners = ['stopEditing', 'closeCollection'];
+    public $listeners = ['updateStatuses', 'stopEditing', 'closeCollection'];
 
+    public function updateStatuses() { $this->collection = $this->collection->fresh(); }
     public function editCollection() { $this->editingProperties = true; }
     public function closeCollection() { $this->editingProperties = false; }
     public function stopEditing() { $this->editingProperties = false; }
